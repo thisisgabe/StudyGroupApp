@@ -14,6 +14,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     main_login_window = new LoginWindow(this);
     myAppWindow = new AppWindowData();
 
+
     group_info_window->setGeometry(geometry());
 
     this->setFixedSize(900, 600);
@@ -21,8 +22,9 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
 
     ui->setupUi(this);
-    resetRowCount();
+
     addItemsToCourseNameComboBox();
+    resetRowCount();
     setColumnsOfTable();
 
     main_login_window->show();
@@ -36,6 +38,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     ui->userdeleteButton_2->hide();
     ui->adminprivButton->hide();
     ui->userlistbox->hide();
+
 
 }
 
@@ -137,16 +140,6 @@ void AppWindow::on_successful_login()
         ui->adminprivButton->show();
         ui->userlistbox->show();
     }
-    /*
-    qDebug() << "User has joined the following studygroups:";
-    foreach (const QJsonValue &value, web_interface->getAppUser().m_studygroups)
-    {
-        QJsonObject json_obj = value.toObject();
-        qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-
-    }
-    qDebug() << "end";
-    */
 }
 
 void AppWindow::resetRowCount()
@@ -205,13 +198,12 @@ void AppWindow::on_listOfAllGroups_cellClicked(int row)
     {
         m_group_info_id = ui->listOfAllGroups->item(row, 0)->text();
     }
-    //emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
-
 }
 
 void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSelected)
 {
     ui->courseNumberComboBox->clear();
+
 
     if (QString::compare(itemSelected,"ENGL",Qt::CaseSensitive)==0)
     {
